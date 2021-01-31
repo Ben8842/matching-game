@@ -1081,7 +1081,7 @@ class App extends Component {
     );
     return (
       <div>
-        <p class="toptitle">Word Search</p>
+        <p class="toptitle">Matching Game</p>
         <Building sizeValue={count} />
         <div className="HeaderSpot">{inputBox}</div>
       </div>
