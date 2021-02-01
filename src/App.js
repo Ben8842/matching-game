@@ -1,9 +1,8 @@
+//import { wait } from "@testing-library/react";
 import React, { Component } from "react";
 import "./App.css";
-var image01 = require("./imgfolder/emojii/emojiione.png").default;
-var image02 = require("./imgfolder/emojii/emojiitwo.png").default;
-var image03 = require("./imgfolder/emojii/emojiithree.png").default;
-var imageback = require("./imgfolder/emojii/back.png").default;
+
+var imageback = require("./imgfolder/emojii/imageback.png").default;
 //var image01 = require("./imgfolder/emojii/emojii_01.png");
 
 class Building extends Component {
@@ -13,6 +12,47 @@ class Building extends Component {
     function shuffle(arry) {
       arry.sort(() => Math.random() - 0.5);
     }
+
+    var imgArr = [
+      require("./imgfolder/emojii/emojii_01.png").default,
+      require("./imgfolder/emojii/emojii_02.png").default,
+      require("./imgfolder/emojii/emojii_03.png").default,
+      require("./imgfolder/emojii/emojii_04.png").default,
+      require("./imgfolder/emojii/emojii_05.png").default,
+      require("./imgfolder/emojii/emojii_06.png").default,
+      require("./imgfolder/emojii/emojii_07.png").default,
+      require("./imgfolder/emojii/emojii_08.png").default,
+      require("./imgfolder/emojii/emojii_09.png").default,
+      require("./imgfolder/emojii/emojii_10.png").default,
+      require("./imgfolder/emojii/emojii_11.png").default,
+      require("./imgfolder/emojii/emojii_12.png").default,
+      require("./imgfolder/emojii/emojii_13.png").default,
+      require("./imgfolder/emojii/emojii_14.png").default,
+      require("./imgfolder/emojii/emojii_15.png").default,
+      require("./imgfolder/emojii/emojii_16.png").default,
+      require("./imgfolder/emojii/emojii_17.png").default,
+      require("./imgfolder/emojii/emojii_18.png").default,
+      require("./imgfolder/emojii/emojii_01.png").default,
+      require("./imgfolder/emojii/emojii_02.png").default,
+      require("./imgfolder/emojii/emojii_03.png").default,
+      require("./imgfolder/emojii/emojii_04.png").default,
+      require("./imgfolder/emojii/emojii_05.png").default,
+      require("./imgfolder/emojii/emojii_06.png").default,
+      require("./imgfolder/emojii/emojii_07.png").default,
+      require("./imgfolder/emojii/emojii_08.png").default,
+      require("./imgfolder/emojii/emojii_09.png").default,
+      require("./imgfolder/emojii/emojii_10.png").default,
+      require("./imgfolder/emojii/emojii_11.png").default,
+      require("./imgfolder/emojii/emojii_12.png").default,
+      require("./imgfolder/emojii/emojii_13.png").default,
+      require("./imgfolder/emojii/emojii_14.png").default,
+      require("./imgfolder/emojii/emojii_15.png").default,
+      require("./imgfolder/emojii/emojii_16.png").default,
+      require("./imgfolder/emojii/emojii_17.png").default,
+      require("./imgfolder/emojii/emojii_18.png").default,
+    ];
+
+    shuffle(imgArr);
 
     var sizing = this.props.sizeValue;
 
@@ -30,6 +70,8 @@ class Building extends Component {
       conflict: false,
       iChoice: false,
       iChoiceQ: false,
+      imgArrS: imgArr,
+      puzStep: 0,
 
       //this is the 'random' adjustment for x coordinate for horizontal word
       sizes: sizing,
@@ -123,21 +165,55 @@ class Building extends Component {
   }*/
 
   clickTime(x, y, superIndex, level) {
-    var { foundH, choicesX, choicesY } = this.state;
+    var { foundH, choicesX, choicesY, puzStep, imgArrS } = this.state;
 
     this.setState((state) => {
-      const holderX = [...state.choicesX, x];
-      const holderY = [...state.choicesY, y];
+      console.log(puzStep);
+      if (puzStep == 0) {
+        const holderX = [...state.choicesX, x];
+        const holderY = [...state.choicesY, y];
+        return {
+          xCoor: x,
+          yCoor: y,
+          puzStep: this.state.puzStep + 1,
+          choicesX: holderX,
+          choicesY: holderY,
+        };
+      }
+      if (puzStep == 1) {
+        console.log(puzStep);
+        if (imgArrS[superIndex] == imgArrS[choicesY[0] * 6 + choicesX[0]]) {
+          const holderX = [...state.choicesX, x];
+          const holderY = [...state.choicesY, y];
+          return {
+            xCoor: x,
+            yCoor: y,
+            puzStep: 0,
+            choicesX: holderX,
+            choicesY: holderY,
+          };
+        } else {
+          console.log("before" + puzStep);
+          setTimeout(() => console.log("two seconds"), 2000);
+
+          console.log("after");
+          // const holderX = choicesX.pop();
+          //const holderY = choicesY.pop();
+          const holderX = [...state.choicesX, x];
+          const holderY = [...state.choicesY, y];
+          console.log(choicesX);
+          console.log(choicesY);
+          return {
+            xCoor: x,
+            yCoor: y,
+            puzStep: 0,
+            choicesX: holderX,
+            choicesY: holderY,
+          };
+        }
+      }
 
       //const foundHold = [...state.foundH, secretWords[num]];
-
-      return {
-        xCoor: x,
-        yCoor: y,
-
-        choicesX: holderX,
-        choicesY: holderY,
-      };
     });
   }
 
@@ -336,7 +412,7 @@ class Building extends Component {
   }
 
   renderSquare(x, y) {
-    var { choicesX, choicesY, sizes } = this.state;
+    var { choicesX, choicesY, sizes, imgArrS } = this.state;
     var run = x;
     var rise = y;
     //var sizes = this.props.sizeValue;
@@ -358,66 +434,26 @@ class Building extends Component {
 
     if (level == 0) {
       var findex = (x * sizes + y) % 6;
-      if (superIndex % 3 == 0) {
-        return (
-          <button
-            id="squareHidden"
-            onClick={() => this.clickTime(x, y, superIndex, level)}
-          >
-            <img src={imageback} alt="mystery"></img>
-          </button>
-        );
-      } else if (superIndex % 3 == 1) {
-        return (
-          <button
-            id="squareHidden"
-            onClick={() => this.clickTime(x, y, superIndex, level)}
-          >
-            <img src={imageback} alt="mystery"></img>
-          </button>
-        );
-      } else if (superIndex % 3 == 2) {
-        return (
-          <button
-            id="squareHidden"
-            onClick={() => this.clickTime(x, y, superIndex, level)}
-          >
-            <img src={imageback} alt="mystery"></img>
-          </button>
-        );
-      }
+      return (
+        <button
+          id="squareHidden"
+          onClick={() => this.clickTime(x, y, superIndex, level)}
+        >
+          <img src={imageback} alt="mystery"></img>
+        </button>
+      );
     } else if (level == 1) {
-      var findex = (x * sizes + y) % 26;
-      if (superIndex % 3 == 0) {
-        return (
-          <button
-            id="squareChosen"
-            onClick={() => this.clickTime(x, y, superIndex, level)}
-          >
-            <img src={image01} alt="mystery"></img>
-          </button>
-        );
-      } else if (superIndex % 3 == 1) {
-        return (
-          <button
-            id="squareChosen"
-            onClick={() => this.clickTime(x, y, superIndex, level)}
-          >
-            <img src={image02} alt="mystery"></img>
-          </button>
-        );
-      } else if (superIndex % 3 == 2) {
-        return (
-          <button
-            id="squareChosen"
-            onClick={() => this.clickTime(x, y, superIndex, level)}
-          >
-            <img src={image03} alt="mystery"></img>
-          </button>
-        );
-      }
+      return (
+        <button
+          id="squareHidden"
+          onClick={() => this.clickTime(x, y, superIndex, level)}
+        >
+          <img src={imgArrS[superIndex]} alt="mystery"></img>
+        </button>
+      );
+    }
 
-      /*else if (level == 2) {
+    /*else if (level == 2) {
       return (
         <button
           id="squarePath"
@@ -440,7 +476,6 @@ class Building extends Component {
         </button>
       );
     }*/
-    }
   }
   render() {
     var {
