@@ -170,6 +170,7 @@ class Building extends Component {
     this.setState((state) => {
       console.log(puzStep);
       if (puzStep == 0) {
+        console.log("PICK ONE MORE AND TRY TO MATCH!");
         const holderX = [...state.choicesX, x];
         const holderY = [...state.choicesY, y];
         return {
@@ -183,6 +184,7 @@ class Building extends Component {
       if (puzStep == 1) {
         console.log(puzStep);
         if (imgArrS[superIndex] == imgArrS[choicesY[0] * 6 + choicesX[0]]) {
+          console.log("MATCH!");
           const holderX = [...state.choicesX, x];
           const holderY = [...state.choicesY, y];
           return {
@@ -193,16 +195,15 @@ class Building extends Component {
             choicesY: holderY,
           };
         } else {
-          console.log("before" + puzStep);
-          setTimeout(() => console.log("two seconds"), 2000);
-
-          console.log("after");
-          // const holderX = choicesX.pop();
-          //const holderY = choicesY.pop();
+          console.log("NO MATCH!");
           const holderX = [...state.choicesX, x];
           const holderY = [...state.choicesY, y];
-          console.log(choicesX);
-          console.log(choicesY);
+
+          // const holderX = choicesX.pop();
+          //const holderY = choicesY.pop();
+
+          console.log(holderX);
+          console.log(holderY);
           return {
             xCoor: x,
             yCoor: y,
@@ -215,6 +216,29 @@ class Building extends Component {
 
       //const foundHold = [...state.foundH, secretWords[num]];
     });
+    if (
+      puzStep == 1 &&
+      imgArrS[superIndex] !== imgArrS[choicesY[0] * 6 + choicesX[0]]
+    ) {
+      setTimeout(() => this.noMatch(), 250);
+
+      //this.noMatch();
+    }
+  }
+
+  noMatch() {
+    var { foundH, choicesX, choicesY, puzStep, imgArrS } = this.state;
+    console.log("before" + puzStep);
+    setTimeout(() => console.log("two seconds"), 2000);
+
+    console.log("after");
+
+    choicesX.pop();
+    choicesY.pop();
+    choicesX.pop();
+
+    choicesY.pop();
+    console.log("popping one now");
   }
 
   foundWord(x, y, sizes, level, findex, num, rangeH, rangeL) {
