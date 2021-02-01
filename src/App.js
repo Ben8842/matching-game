@@ -3,6 +3,7 @@ import "./App.css";
 var image01 = require("./imgfolder/emojii/emojiione.png").default;
 var image02 = require("./imgfolder/emojii/emojiitwo.png").default;
 var image03 = require("./imgfolder/emojii/emojiithree.png").default;
+var imageback = require("./imgfolder/emojii/back.png").default;
 //var image01 = require("./imgfolder/emojii/emojii_01.png");
 
 class Building extends Component {
@@ -120,6 +121,25 @@ class Building extends Component {
       return { wordFound: true, choicesX: holderX, choicesY: holderY };
     });
   }*/
+
+  clickTime(x, y, superIndex, level) {
+    var { foundH, choicesX, choicesY } = this.state;
+
+    this.setState((state) => {
+      const holderX = [...state.choicesX, x];
+      const holderY = [...state.choicesY, y];
+
+      //const foundHold = [...state.foundH, secretWords[num]];
+
+      return {
+        xCoor: x,
+        yCoor: y,
+
+        choicesX: holderX,
+        choicesY: holderY,
+      };
+    });
+  }
 
   foundWord(x, y, sizes, level, findex, num, rangeH, rangeL) {
     var { secretWords, foundH, choicesX, choicesY } = this.state;
@@ -337,28 +357,65 @@ class Building extends Component {
     }
 
     if (level == 0) {
-      var findex = (x * sizes + y) % 26;
-
-      return (
-        <div>
-          <button id="squareM">
-            <img src={image03} alt="mystery"></img>
+      var findex = (x * sizes + y) % 6;
+      if (superIndex % 3 == 0) {
+        return (
+          <button
+            id="squareHidden"
+            onClick={() => this.clickTime(x, y, superIndex, level)}
+          >
+            <img src={imageback} alt="mystery"></img>
           </button>
-        </div>
-      );
+        );
+      } else if (superIndex % 3 == 1) {
+        return (
+          <button
+            id="squareHidden"
+            onClick={() => this.clickTime(x, y, superIndex, level)}
+          >
+            <img src={imageback} alt="mystery"></img>
+          </button>
+        );
+      } else if (superIndex % 3 == 2) {
+        return (
+          <button
+            id="squareHidden"
+            onClick={() => this.clickTime(x, y, superIndex, level)}
+          >
+            <img src={imageback} alt="mystery"></img>
+          </button>
+        );
+      }
     } else if (level == 1) {
       var findex = (x * sizes + y) % 26;
-
-      return (
-        <button
-          id="squareMfound"
-          codex={x}
-          codey={y}
-          onClick={() => this.clickZero(run, rise, findex)}
-        >
-          <img src="null"></img>
-        </button>
-      );
+      if (superIndex % 3 == 0) {
+        return (
+          <button
+            id="squareChosen"
+            onClick={() => this.clickTime(x, y, superIndex, level)}
+          >
+            <img src={image01} alt="mystery"></img>
+          </button>
+        );
+      } else if (superIndex % 3 == 1) {
+        return (
+          <button
+            id="squareChosen"
+            onClick={() => this.clickTime(x, y, superIndex, level)}
+          >
+            <img src={image02} alt="mystery"></img>
+          </button>
+        );
+      } else if (superIndex % 3 == 2) {
+        return (
+          <button
+            id="squareChosen"
+            onClick={() => this.clickTime(x, y, superIndex, level)}
+          >
+            <img src={image03} alt="mystery"></img>
+          </button>
+        );
+      }
 
       /*else if (level == 2) {
       return (
@@ -423,72 +480,11 @@ class Building extends Component {
       }
     }
 
-    const moreDisplay = (
-      <div>
-        <ol>
-          {foundH.map((value, index) => {
-            return (
-              <li key={index} id="found">
-                <button id="worddiscover">{value}</button>
-              </li>
-            );
-          })}
-        </ol>
-        <ol>
-          {choicesX.map((value, index) => {
-            return (
-              <li key={index}>
-                ( {value} , {choicesY[index]}, {gridStatus[index]} )
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-    );
-
-    const displayLocation = (
-      <div class="column">
-        <p>Math your pictures</p>
-
-        <p>
-          <span>{moreDisplay}</span>( {xCoor} , {yCoor} )
-        </p>
-      </div>
-    );
-
-    const noneDisplay = (
-      <div class="column">
-        <p>Math your pictures</p>
-      </div>
-    );
-
-    const winchecker = <span>Number of words found = {foundH.length}</span>;
-
-    const winpuzzle = (
-      <span>
-        YOU WIN THE PUZZLE! Try Again!{" "}
-        <button type="button" class="button" onClick={() => this.resethome()}>
-          RESET Your Puzzle
-        </button>
-      </span>
-    );
-
-    const losepuzzle = (
-      <span>
-        YOU LOSE THE PUZZLE! Please Try Again.
-        <button type="button" class="button" onClick={() => this.resethome()}>
-          RESET Your Puzzle
-        </button>
-      </span>
-    );
-
     const gridDisplay = (
-      <div class="column">
+      <div>
         {elementZ.map((value, index) => {
           return <span key={index}>{value}</span>;
         })}
-
-        <div>{winpuzzle}</div>
       </div>
     );
 
@@ -501,8 +497,6 @@ class Building extends Component {
         </div>
         <div class="row" id="info">
           {gridDisplay}
-
-          {showInfo ? displayLocation : noneDisplay}
         </div>
         <div></div>
       </div>
