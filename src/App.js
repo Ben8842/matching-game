@@ -183,7 +183,12 @@ class Building extends Component {
       }
       if (puzStep == 1) {
         console.log(puzStep);
-        if (imgArrS[superIndex] == imgArrS[choicesY[0] * 6 + choicesX[0]]) {
+        if (
+          imgArrS[superIndex] ==
+          imgArrS[
+            choicesY[choicesY.length - 1] * 6 + choicesX[choicesX.length - 1]
+          ]
+        ) {
           console.log("MATCH!");
           const holderX = [...state.choicesX, x];
           const holderY = [...state.choicesY, y];
@@ -218,7 +223,10 @@ class Building extends Component {
     });
     if (
       puzStep == 1 &&
-      imgArrS[superIndex] !== imgArrS[choicesY[0] * 6 + choicesX[0]]
+      imgArrS[superIndex] !==
+        imgArrS[
+          choicesY[choicesY.length - 1] * 6 + choicesX[choicesX.length - 1]
+        ]
     ) {
       setTimeout(() => this.noMatch(), 250);
 
@@ -549,13 +557,13 @@ class Building extends Component {
 
     return (
       <div id="entireThing">
+        <div class="row" id="info">
+          {gridDisplay}
+        </div>
         <div>
           <button type="button" class="button" onClick={() => this.resethome()}>
             RESET Puzzle
           </button>
-        </div>
-        <div class="row" id="info">
-          {gridDisplay}
         </div>
         <div></div>
       </div>
@@ -598,7 +606,7 @@ class App extends Component {
     );
     return (
       <div>
-        <p class="toptitle">Matching Game</p>
+        <p class="toptitle">Emojii Matching Game</p>
         <Building sizeValue={count} />
         <div className="HeaderSpot">{inputBox}</div>
       </div>
