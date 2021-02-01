@@ -46,17 +46,16 @@
 }
 
 #squareM {
-  background-color: black;
-  color: red;
+  background-color: white;
 
   border: solid solid solid solid;
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 45px;
+  height: 100px;
   padding: 0;
   text-align: center;
-  width: 45px;
+  width: 100px;
 }
 
 #squareMM {

@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
+var image01 = require("./imgfolder/emojii/emojiione.png").default;
+var image02 = require("./imgfolder/emojii/emojiitwo.png").default;
+var image03 = require("./imgfolder/emojii/emojiithree.png").default;
+//var image01 = require("./imgfolder/emojii/emojii_01.png");
 
 class Building extends Component {
   constructor(props) {
@@ -312,18 +316,7 @@ class Building extends Component {
   }
 
   renderSquare(x, y) {
-    var {
-      choicesX,
-      choicesY,
-      alphaRand,
-      secretObj,
-      secretVObj,
-      VADJ,
-      ADJ,
-      sizes,
-      ADJH,
-      VADJH,
-    } = this.state;
+    var { choicesX, choicesY, sizes } = this.state;
     var run = x;
     var rise = y;
     //var sizes = this.props.sizeValue;
@@ -347,14 +340,11 @@ class Building extends Component {
       var findex = (x * sizes + y) % 26;
 
       return (
-        <button
-          id="squareM"
-          codex={x}
-          codey={y}
-          onClick={() => this.clickZero(x, y, findex)}
-        >
-          {findex}
-        </button>
+        <div>
+          <button id="squareM">
+            <img src={image03} alt="mystery"></img>
+          </button>
+        </div>
       );
     } else if (level == 1) {
       var findex = (x * sizes + y) % 26;
@@ -366,7 +356,7 @@ class Building extends Component {
           codey={y}
           onClick={() => this.clickZero(run, rise, findex)}
         >
-          {findex}
+          <img src="null"></img>
         </button>
       );
 
@@ -402,11 +392,7 @@ class Building extends Component {
       yCoor,
       choicesX,
       choicesY,
-      numOfQueens,
-      iChoice,
-      iChoiceQ,
-      secretWords,
-      secretVords,
+
       gridStatus,
       foundH,
     } = this.state;
@@ -502,7 +488,7 @@ class Building extends Component {
           return <span key={index}>{value}</span>;
         })}
 
-        <div>{numOfQueens !== 0 ? winchecker : winpuzzle}</div>
+        <div>{winpuzzle}</div>
       </div>
     );
 
