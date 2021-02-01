@@ -70,6 +70,8 @@ class Building extends Component {
       foundHV: [],
       score: 50,
       isMatch: false,
+      isWin: false,
+      numOfMatch: 0,
     };
   }
 
@@ -138,6 +140,8 @@ class Building extends Component {
         doubleClick: false,
         isMatch: false,
         score: 50,
+        isWin: false,
+        numOfMatch: 0,
       };
     });
   }
@@ -200,6 +204,7 @@ class Building extends Component {
               score: this.state.score + 10,
               isMatch: true,
               doubleClick: false,
+              numOfMatch: this.state.numOfMatch + 1,
             };
           } else {
             console.log("NO MATCH!");
@@ -278,7 +283,7 @@ class Building extends Component {
   }
 
   render() {
-    var { foundH, doubleClick, score, isMatch } = this.state;
+    var { foundH, doubleClick, score, isMatch, numOfMatch } = this.state;
     console.log(foundH);
     const boardA = this.props.sizeValue;
 
@@ -351,7 +356,9 @@ class Building extends Component {
 
     return (
       <div>
-        {doubleClick ? instructionsDouble : instructions}
+        {doubleClick && numOfMatch !== 18 ? instructionsDouble : instructions}
+        {numOfMatch == 18 ? instructionsWin : null}
+
         <div id="entireThing">
           <div class="row" id="info">
             {gridDisplay}
