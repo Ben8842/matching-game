@@ -64,9 +64,12 @@ class Building extends Component {
       imgArrS: imgArr,
       puzStep: 0,
       sizes: sizing,
+      doubleClick: false,
 
       foundH: [],
       foundHV: [],
+      score: 50,
+      isMatch: false,
     };
   }
 
@@ -132,72 +135,98 @@ class Building extends Component {
 
         foundH: [],
         foundHV: [],
+        doubleClick: false,
+        isMatch: false,
+        score: 50,
       };
     });
   }
 
   clickTime(x, y, superIndex, level) {
-    var { foundH, choicesX, choicesY, puzStep, imgArrS } = this.state;
-
-    this.setState((state) => {
-      console.log(puzStep);
-      if (puzStep == 0) {
-        console.log("PICK ONE MORE AND TRY TO MATCH!");
-        const holderX = [...state.choicesX, x];
-        const holderY = [...state.choicesY, y];
+    var {
+      foundH,
+      choicesX,
+      choicesY,
+      puzStep,
+      imgArrS,
+      doubleClick,
+      score,
+      isMatch,
+    } = this.state;
+    if (level == 1) {
+      console.log("whoa you clicked this already!");
+      this.setState((state) => {
         return {
-          xCoor: x,
-          yCoor: y,
-          puzStep: this.state.puzStep + 1,
-          choicesX: holderX,
-          choicesY: holderY,
+          doubleClick: true,
+          score: this.state.score - 1,
+          isMatch: false,
         };
-      }
-      if (puzStep == 1) {
+      });
+    } else {
+      this.setState((state) => {
         console.log(puzStep);
-        if (
-          imgArrS[superIndex] ==
+        if (puzStep == 0) {
+          console.log("PICK ONE MORE AND TRY TO MATCH!");
+          const holderX = [...state.choicesX, x];
+          const holderY = [...state.choicesY, y];
+          return {
+            xCoor: x,
+            yCoor: y,
+            puzStep: this.state.puzStep + 1,
+            choicesX: holderX,
+            choicesY: holderY,
+            score: this.state.score - 1,
+            isMatch: false,
+          };
+        }
+        if (puzStep == 1) {
+          console.log(puzStep);
+          if (
+            imgArrS[superIndex] ==
+            imgArrS[
+              choicesY[choicesY.length - 1] * 6 + choicesX[choicesX.length - 1]
+            ]
+          ) {
+            console.log("MATCH!");
+            const holderX = [...state.choicesX, x];
+            const holderY = [...state.choicesY, y];
+            return {
+              xCoor: x,
+              yCoor: y,
+              puzStep: 0,
+              choicesX: holderX,
+              choicesY: holderY,
+              score: this.state.score + 10,
+              isMatch: true,
+            };
+          } else {
+            console.log("NO MATCH!");
+            const holderX = [...state.choicesX, x];
+            const holderY = [...state.choicesY, y];
+            console.log(holderX);
+            console.log(holderY);
+            return {
+              xCoor: x,
+              yCoor: y,
+              puzStep: 0,
+              choicesX: holderX,
+              choicesY: holderY,
+              score: this.state.score - 2,
+            };
+          }
+        }
+      });
+      if (
+        puzStep == 1 &&
+        imgArrS[superIndex] !==
           imgArrS[
             choicesY[choicesY.length - 1] * 6 + choicesX[choicesX.length - 1]
           ]
-        ) {
-          console.log("MATCH!");
-          const holderX = [...state.choicesX, x];
-          const holderY = [...state.choicesY, y];
-          return {
-            xCoor: x,
-            yCoor: y,
-            puzStep: 0,
-            choicesX: holderX,
-            choicesY: holderY,
-          };
-        } else {
-          console.log("NO MATCH!");
-          const holderX = [...state.choicesX, x];
-          const holderY = [...state.choicesY, y];
-          console.log(holderX);
-          console.log(holderY);
-          return {
-            xCoor: x,
-            yCoor: y,
-            puzStep: 0,
-            choicesX: holderX,
-            choicesY: holderY,
-          };
-        }
+      ) {
+        setTimeout(() => this.noMatch(), 250);
       }
-    });
-    if (
-      puzStep == 1 &&
-      imgArrS[superIndex] !==
-        imgArrS[
-          choicesY[choicesY.length - 1] * 6 + choicesX[choicesX.length - 1]
-        ]
-    ) {
-      setTimeout(() => this.noMatch(), 250);
     }
   }
-
   noMatch() {
     var { foundH, choicesX, choicesY, puzStep, imgArrS } = this.state;
     console.log("before" + puzStep);
@@ -246,7 +275,7 @@ class Building extends Component {
   }
 
   render() {
-    var { foundH } = this.state;
+    var { foundH, doubleClick, score, isMatch } = this.state;
     console.log(foundH);
     const boardA = this.props.sizeValue;
 
@@ -282,17 +311,57 @@ class Building extends Component {
       </div>
     );
 
+    const matchCelebrate = (
+      <div id="instruction">You got a great Match! + 10 points !</div>
+    );
+
+    const placeholder = (
+      <div id="instuctionPlace">
+        <div>only a place holder</div>
+      </div>
+    );
+
+    const instructions = (
+      <div id="instruction">
+        Click below to find and match the emojiis!
+        <div id="score">
+          Your score is {score}. {isMatch ? matchCelebrate : placeholder}
+        </div>
+      </div>
+    );
+
+    const instructionsDouble = (
+      <div id="instruction">
+        You chose this one already, try a different one!
+        <div id="score">Your score is {score}. </div>
+      </div>
+    );
+
+    const instructionsWin = (
+      <div id="instruction">
+        You matched all of the emojiis. Amazing!
+        <div id="score">Your final score was {score}. Amazing! </div>
+      </div>
+    );
+
     return (
-      <div id="entireThing">
-        <div class="row" id="info">
-          {gridDisplay}
+      <div>
+        {doubleClick ? instructionsDouble : instructions}
+        <div id="entireThing">
+          <div class="row" id="info">
+            {gridDisplay}
+          </div>
+          <div>
+            <button
+              type="button"
+              class="button"
+              onClick={() => this.resethome()}
+            >
+              Generate a New Puzzle
+            </button>
+          </div>
+          <div></div>
         </div>
-        <div>
-          <button type="button" class="button" onClick={() => this.resethome()}>
-            RESET Puzzle
-          </button>
-        </div>
-        <div></div>
       </div>
     );
   }

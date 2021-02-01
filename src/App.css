@@ -19,6 +19,27 @@
 
 #entireThing {
   margin: 50px;
+  text-align: center;
+}
+
+#instruction {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+#instructionPlace {
+  background-color: blue;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#score {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 100px;
 }
 #info {
   margin: 50px;
