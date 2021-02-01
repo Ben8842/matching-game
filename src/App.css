@@ -27,15 +27,30 @@
   font-weight: bold;
   font-size: 18px;
 }
-#instructionPlace {
-  background-color: blue;
+
+#instructionRed {
   color: red;
   text-align: center;
   font-weight: bold;
   font-size: 18px;
 }
 
+#instructionGreen {
+  color: green;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#instructionPlace {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
 #score {
+  color: black;
   font-size: 40px;
   font-weight: bold;
   text-align: left;
@@ -75,7 +90,7 @@
   line-height: 34px;
   height: 100px;
   padding: 0px;
-  margin: 25px;
+  margin: 10px;
   text-align: center;
   width: 100px;
 }
@@ -104,7 +119,7 @@
   line-height: 34px;
   height: 100px;
   padding: 0px;
-  margin: 25px;
+  margin: 5px;
   text-align: center;
   width: 100px;
 }
@@ -119,7 +134,7 @@
   line-height: 34px;
   height: 100px;
   padding: 0px;
-  margin: 25px;
+  margin: 5px;
   text-align: center;
   width: 100px;
 }

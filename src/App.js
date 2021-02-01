@@ -177,6 +177,7 @@ class Building extends Component {
             choicesY: holderY,
             score: this.state.score - 1,
             isMatch: false,
+            doubleClick: false,
           };
         }
         if (puzStep == 1) {
@@ -198,6 +199,7 @@ class Building extends Component {
               choicesY: holderY,
               score: this.state.score + 10,
               isMatch: true,
+              doubleClick: false,
             };
           } else {
             console.log("NO MATCH!");
@@ -211,7 +213,8 @@ class Building extends Component {
               puzStep: 0,
               choicesX: holderX,
               choicesY: holderY,
-              score: this.state.score - 2,
+              score: this.state.score - 1,
+              doubleClick: false,
             };
           }
         }
@@ -312,11 +315,11 @@ class Building extends Component {
     );
 
     const matchCelebrate = (
-      <div id="instruction">You got a great Match! + 10 points !</div>
+      <div id="instructionGreen">You got a great Match! + 10 points !</div>
     );
 
     const placeholder = (
-      <div id="instuctionPlace">
+      <div id="instructionPlace">
         <div>only a place holder</div>
       </div>
     );
@@ -325,15 +328,17 @@ class Building extends Component {
       <div id="instruction">
         Click below to find and match the emojiis!
         <div id="score">
-          Your score is {score}. {isMatch ? matchCelebrate : placeholder}
+          SCORE = {score}. {isMatch ? matchCelebrate : placeholder}
         </div>
       </div>
     );
 
     const instructionsDouble = (
-      <div id="instruction">
+      <div id="instructionRed">
         You chose this one already, try a different one!
-        <div id="score">Your score is {score}. </div>
+        <div id="score">
+          SCORE = {score}. {isMatch ? matchCelebrate : placeholder}
+        </div>
       </div>
     );
 
@@ -404,7 +409,6 @@ class App extends Component {
       <div>
         <p class="toptitle">Emojii Matching Game</p>
         <Building sizeValue={count} />
-        <div className="HeaderSpot">{inputBox}</div>
       </div>
     );
   }
