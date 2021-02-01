@@ -85,23 +85,77 @@ class Building extends Component {
   }
 
   resethome() {
+    var imgArr = [
+      require("./imgfolder/emojii/emojii_01.png").default,
+      require("./imgfolder/emojii/emojii_02.png").default,
+      require("./imgfolder/emojii/emojii_03.png").default,
+      require("./imgfolder/emojii/emojii_04.png").default,
+      require("./imgfolder/emojii/emojii_05.png").default,
+      require("./imgfolder/emojii/emojii_06.png").default,
+      require("./imgfolder/emojii/emojii_07.png").default,
+      require("./imgfolder/emojii/emojii_08.png").default,
+      require("./imgfolder/emojii/emojii_09.png").default,
+      require("./imgfolder/emojii/emojii_10.png").default,
+      require("./imgfolder/emojii/emojii_11.png").default,
+      require("./imgfolder/emojii/emojii_12.png").default,
+      require("./imgfolder/emojii/emojii_13.png").default,
+      require("./imgfolder/emojii/emojii_14.png").default,
+      require("./imgfolder/emojii/emojii_15.png").default,
+      require("./imgfolder/emojii/emojii_16.png").default,
+      require("./imgfolder/emojii/emojii_17.png").default,
+      require("./imgfolder/emojii/emojii_18.png").default,
+      require("./imgfolder/emojii/emojii_01.png").default,
+      require("./imgfolder/emojii/emojii_02.png").default,
+      require("./imgfolder/emojii/emojii_03.png").default,
+      require("./imgfolder/emojii/emojii_04.png").default,
+      require("./imgfolder/emojii/emojii_05.png").default,
+      require("./imgfolder/emojii/emojii_06.png").default,
+      require("./imgfolder/emojii/emojii_07.png").default,
+      require("./imgfolder/emojii/emojii_08.png").default,
+      require("./imgfolder/emojii/emojii_09.png").default,
+      require("./imgfolder/emojii/emojii_10.png").default,
+      require("./imgfolder/emojii/emojii_11.png").default,
+      require("./imgfolder/emojii/emojii_12.png").default,
+      require("./imgfolder/emojii/emojii_13.png").default,
+      require("./imgfolder/emojii/emojii_14.png").default,
+      require("./imgfolder/emojii/emojii_15.png").default,
+      require("./imgfolder/emojii/emojii_16.png").default,
+      require("./imgfolder/emojii/emojii_17.png").default,
+      require("./imgfolder/emojii/emojii_18.png").default,
+    ];
+    function shuffle(arry) {
+      arry.sort(() => Math.random() - 0.5);
+    }
+    shuffle(imgArr);
+
+    var sizing = this.props.sizeValue;
+
+    function randomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
     this.setState((state) => {
       return {
         showInfo: false,
         xCoor: null,
         yCoor: null,
-        isChess: false,
-        boardS: 0,
-        chessCodeLetter: "",
-        chessCodeNumber: "",
+        size: 0,
         choicesX: [],
         choicesY: [],
-        numOfQueens: 0,
         conflict: false,
-        solved8: false,
-        gridStatus: [],
         iChoice: false,
         iChoiceQ: false,
+        imgArrS: imgArr,
+        puzStep: 0,
+
+        //this is the 'random' adjustment for x coordinate for horizontal word
+        sizes: sizing,
+
+        //this is the 'random' adjustment for y coordinate for horizontal word
+
+        wordFound: false,
+        foundH: [],
+        foundHV: [],
       };
     });
   }
