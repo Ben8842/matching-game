@@ -1,9 +1,7 @@
-//import { wait } from "@testing-library/react";
 import React, { Component } from "react";
 import "./App.css";
 
 var imageback = require("./imgfolder/emojii/imageback.png").default;
-//var image01 = require("./imgfolder/emojii/emojii_01.png");
 
 class Building extends Component {
   constructor(props) {
@@ -56,10 +54,6 @@ class Building extends Component {
 
     var sizing = this.props.sizeValue;
 
-    function randomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    }
-
     this.state = {
       showInfo: false,
       xCoor: null,
@@ -67,18 +61,10 @@ class Building extends Component {
       size: 0,
       choicesX: [],
       choicesY: [],
-      conflict: false,
-      iChoice: false,
-      iChoiceQ: false,
       imgArrS: imgArr,
       puzStep: 0,
-
-      //this is the 'random' adjustment for x coordinate for horizontal word
       sizes: sizing,
 
-      //this is the 'random' adjustment for y coordinate for horizontal word
-
-      wordFound: false,
       foundH: [],
       foundHV: [],
     };
@@ -130,10 +116,6 @@ class Building extends Component {
 
     var sizing = this.props.sizeValue;
 
-    function randomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    }
-
     this.setState((state) => {
       return {
         showInfo: false,
@@ -142,81 +124,17 @@ class Building extends Component {
         size: 0,
         choicesX: [],
         choicesY: [],
-        conflict: false,
-        iChoice: false,
-        iChoiceQ: false,
+
         imgArrS: imgArr,
         puzStep: 0,
 
-        //this is the 'random' adjustment for x coordinate for horizontal word
         sizes: sizing,
 
-        //this is the 'random' adjustment for y coordinate for horizontal word
-
-        wordFound: false,
         foundH: [],
         foundHV: [],
       };
     });
   }
-
-  showCode(x, y, sizes, level, findex, num) {
-    var {
-      showInfo,
-      xCoor,
-      yCoor,
-      isChess,
-      boardS,
-      chessCodeLetter,
-      chessCodeNumber,
-      choicesX,
-      choicesY,
-      numOfQueens,
-      solved8,
-      conflict,
-      alphaRand,
-    } = this.state;
-    this.setState((state) => {
-      const holderX = [...state.choicesX, x];
-      const holderY = [...state.choicesY, y];
-
-      return {
-        showInfo: true,
-        xCoor: x,
-        yCoor: y,
-        isChess: false,
-        choicesX: holderX,
-        choicesY: holderY,
-        iChoice: false,
-        iChoiceQ: false,
-      };
-    });
-  }
-
-  /*foundWord(x, y, size, level, findex, num) {
-    .log("you found one!");
-    var {
-      showInfo,
-      xCoor,
-      yCoor,
-      isChess,
-      boardS,
-      chessCodeLetter,
-      chessCodeNumber,
-      choicesX,
-      choicesY,
-      numOfQueens,
-      solved8,
-      conflict,
-      alphaRand,
-      wordFound,
-    } = this.state;
-    const holderX = [...state.choicesX, x];
-    const holderY = [...state.choicesY, y];
-    this.setState((state) => {
-      return { wordFound: true, choicesX: holderX, choicesY: holderY };
-    });
-  }*/
 
   clickTime(x, y, superIndex, level) {
     var { foundH, choicesX, choicesY, puzStep, imgArrS } = this.state;
@@ -257,10 +175,6 @@ class Building extends Component {
           console.log("NO MATCH!");
           const holderX = [...state.choicesX, x];
           const holderY = [...state.choicesY, y];
-
-          // const holderX = choicesX.pop();
-          //const holderY = choicesY.pop();
-
           console.log(holderX);
           console.log(holderY);
           return {
@@ -272,8 +186,6 @@ class Building extends Component {
           };
         }
       }
-
-      //const foundHold = [...state.foundH, secretWords[num]];
     });
     if (
       puzStep == 1 &&
@@ -283,218 +195,18 @@ class Building extends Component {
         ]
     ) {
       setTimeout(() => this.noMatch(), 250);
-
-      //this.noMatch();
     }
   }
 
   noMatch() {
     var { foundH, choicesX, choicesY, puzStep, imgArrS } = this.state;
     console.log("before" + puzStep);
-    setTimeout(() => console.log("two seconds"), 2000);
-
-    console.log("after");
 
     choicesX.pop();
     choicesY.pop();
     choicesX.pop();
-
     choicesY.pop();
     console.log("popping one now");
-  }
-
-  foundWord(x, y, sizes, level, findex, num, rangeH, rangeL) {
-    var { secretWords, foundH, choicesX, choicesY } = this.state;
-    if ((level == 0) | (level == 1)) {
-      const boxX = [];
-      const boxY = [];
-      var i = secretWords[num].length;
-      var u;
-      var s = sizes * y;
-      console.log(sizes * y + "sizes * y");
-      var t = rangeL - s;
-      console.log(rangeL + "rangeL");
-      console.log(rangeH + "rangeH");
-      for (u = 0; u < i; u++) {
-        boxX.push(t + u);
-        boxY.push(y);
-      }
-      console.log(boxX);
-      console.log(boxY);
-      this.setState((state) => {
-        const holderX = [
-          ...state.choicesX,
-          boxX[0],
-          boxX[1],
-          boxX[2],
-          boxX[3],
-          boxX[4],
-          boxX[5],
-          boxX[6],
-        ];
-        const holderY = [
-          ...state.choicesY,
-          boxY[0],
-          boxY[1],
-          boxY[2],
-          boxY[3],
-          boxY[4],
-          boxY[5],
-          boxY[6],
-        ];
-
-        const foundHold = [...state.foundH, secretWords[num]];
-        console.log(foundH);
-        return {
-          showInfo: true,
-          xCoor: x,
-          yCoor: y,
-          isChess: false,
-          choicesX: holderX,
-          choicesY: holderY,
-          iChoice: false,
-          iChoiceQ: false,
-          foundH: foundHold,
-        };
-      });
-    } else {
-      this.setState((state) => {
-        const holderX = [...state.choicesX, x];
-        const holderY = [...state.choicesY, y];
-
-        const foundHold = [...state.foundH, secretWords[num]];
-        console.log(foundH);
-        return {
-          showInfo: true,
-          xCoor: x,
-          yCoor: y,
-          isChess: false,
-          choicesX: holderX,
-          choicesY: holderY,
-          iChoice: false,
-          iChoiceQ: false,
-          foundH: foundHold,
-        };
-      });
-      console.log(choicesX);
-    }
-    /*var wide = secretWords[num].length;
-    var c;
-    var p;
-    while (c < wide) {
-      c++;
-      x++;
-      if (y * sizes + x < rangeH) {
-        p++;
-      }
-    }
-    x = x - wide;
-    var d;
-    var e;
-    while (d < wide) {
-      d++;
-      x--;
-      if (y * sizes + x > rangeL) {
-        e++;
-      }
-    }
-    var q;
-    for (q = 0; q < p; q++) {
-      console.log(e + "" + p);
-      this.setState((prevstate) => {
-        choicesX = [...prevstate.choicesX, x + q];
-        choicesY = [...prevstate.choicesY, y];
-      });
-    }*/
-  }
-
-  foundWordV(x, y, sizes, level, findex, num, leveldown, start) {
-    var {
-      secretWords,
-      secretVords,
-      foundH,
-      foundHV,
-      choicesX,
-      choicesY,
-    } = this.state;
-    if ((level == 0) | (level == 1)) {
-      const boxX = [];
-      const boxY = [];
-      var i = secretVords[num].length;
-      var u;
-      var s = sizes * y;
-      // console.log(sizes * y + "sizes * y");
-      //var t = rangeL - s;
-      var realstart = Math.floor(start / sizes);
-      console.log(realstart);
-      for (u = 0; u < i; u++) {
-        boxX.push(x);
-        boxY.push(realstart - u);
-      }
-      console.log(boxX);
-      console.log(boxY);
-      this.setState((state) => {
-        const holderX = [
-          ...state.choicesX,
-          boxX[0],
-          boxX[1],
-          boxX[2],
-          boxX[3],
-          boxX[4],
-          boxX[5],
-          boxX[6],
-        ];
-        const holderY = [
-          ...state.choicesY,
-          boxY[0],
-          boxY[1],
-          boxY[2],
-          boxY[3],
-          boxY[4],
-          boxY[5],
-          boxY[6],
-        ];
-
-        const foundHoldV = [...state.foundHV, secretVords[num]];
-        console.log(foundHoldV);
-        return {
-          showInfo: true,
-          xCoor: x,
-          yCoor: y,
-          isChess: false,
-          choicesX: holderX,
-          choicesY: holderY,
-          iChoice: false,
-          iChoiceQ: false,
-          foundHV: foundHoldV,
-        };
-      });
-    } else {
-      this.setState((state) => {
-        const holderX = [...state.choicesX, x];
-        const holderY = [...state.choicesY, y];
-
-        const foundHold = [...state.foundH, secretWords[num]];
-        console.log(foundH);
-        return {
-          showInfo: true,
-          xCoor: x,
-          yCoor: y,
-          isChess: false,
-          choicesX: holderX,
-          choicesY: holderY,
-          iChoice: false,
-          iChoiceQ: false,
-          foundH: foundHold,
-        };
-      });
-      console.log(choicesX);
-    }
-  }
-
-  clickZero() {
-    console.log("hello clickZero");
-    return;
   }
 
   renderSquare(x, y) {
@@ -508,14 +220,7 @@ class Building extends Component {
     for (z = 0; z < choicesX.length; z++) {
       if (choicesX[z] == x && choicesY[z] == y) {
         level = 1;
-      } /*else if ((choicesX[z] == x) | (choicesY[z] == y)) {
-        level = 2;
-      }  else if (
-        Math.abs(choicesX[z] - x) == Math.abs(choicesY[z] - y) &&
-        xCoor != null
-      ) {
-        level = 3;
-      }*/
+      }
     }
 
     if (level == 0) {
@@ -538,42 +243,10 @@ class Building extends Component {
         </button>
       );
     }
-
-    /*else if (level == 2) {
-      return (
-        <button
-          id="squarePath"
-          codex={x}
-          codey={y}
-          onClick={() => this.invalidChoice(run, rise, sizes, level)}
-        >
-          P
-        </button>
-      );
-    } else if (level == 3) {
-      return (
-        <button
-          id="squareDiagonal"
-          codex={x}
-          codey={y}
-          onClick={() => this.invalidChoice(run, rise, sizes, level)}
-        >
-          D
-        </button>
-      );
-    }*/
   }
-  render() {
-    var {
-      showInfo,
-      xCoor,
-      yCoor,
-      choicesX,
-      choicesY,
 
-      gridStatus,
-      foundH,
-    } = this.state;
+  render() {
+    var { foundH } = this.state;
     console.log(foundH);
     const boardA = this.props.sizeValue;
 

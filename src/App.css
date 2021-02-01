@@ -45,7 +45,7 @@
   width: 45px;
 }
 
-#squareChosen: focus {
+#squareChosen:focus {
   background-color: white;
   border: none;
   background: none;
