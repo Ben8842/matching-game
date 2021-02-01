@@ -320,7 +320,7 @@ class Building extends Component {
     );
 
     const matchCelebrate = (
-      <div id="instructionGreen">You got a great Match! + 10 points !</div>
+      <div id="instructionGreen">Great Match! + 10 points !</div>
     );
 
     const placeholder = (
@@ -333,16 +333,17 @@ class Building extends Component {
       <div id="instruction">
         Click below to find and match the emojiis!
         <div id="score">
-          SCORE = {score}. {isMatch ? matchCelebrate : placeholder}
+          SCORE = {score}
+          {isMatch ? matchCelebrate : placeholder}
         </div>
       </div>
     );
 
     const instructionsDouble = (
       <div id="instructionRed">
-        You chose this one already, try a different one!
+        Oops! try a different one!
         <div id="score">
-          SCORE = {score}. {isMatch ? matchCelebrate : placeholder}
+          SCORE = {score} {isMatch ? matchCelebrate : placeholder}
         </div>
       </div>
     );
@@ -360,9 +361,7 @@ class Building extends Component {
         {numOfMatch == 18 ? instructionsWin : null}
 
         <div id="entireThing">
-          <div class="row" id="info">
-            {gridDisplay}
-          </div>
+          <div id="info">{gridDisplay}</div>
           <div>
             <button
               type="button"
@@ -372,7 +371,6 @@ class Building extends Component {
               Generate a New Puzzle
             </button>
           </div>
-          <div></div>
         </div>
       </div>
     );
