@@ -213,8 +213,23 @@
 }
 
 @media only screen and (max-width: 700px) {
+  #info {
+    margin: 2px;
+    padding: 0px;
+    border-color: black;
+    border: solid;
+    font-size: 24px;
+    border: 4px solid #008cba;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
   img {
     max-width: 100%;
+  }
+  #entireThing {
+    margin: 0px;
+    text-align: center;
   }
   #squareHidden {
     background-color: white;
@@ -223,11 +238,11 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 34px;
-    height: 50px;
+    height: 35px;
     padding: 0px;
     margin: 5px;
     text-align: center;
-    width: 50px;
+    width: 35px;
   }
 
   #squareHidden:focus {
@@ -238,10 +253,10 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 34px;
-    height: 50px;
+    height: 35px;
     padding: 0px;
     margin: 5px;
     text-align: center;
-    width: 50px;
+    width: 35px;
   }
 }
