@@ -331,7 +331,7 @@ class Building extends Component {
 
     const instructions = (
       <div id="instruction">
-        Click below to find and match the emojiis!
+        Click below to find and match the emojis!
         <div id="score">
           SCORE = {score}
           {isMatch ? matchCelebrate : placeholder}
@@ -412,7 +412,7 @@ class App extends Component {
     );
     return (
       <div>
-        <p class="toptitle">Emojii Matching Game</p>
+        <p class="toptitle">Emoji Matching Game</p>
         <Building sizeValue={count} />
       </div>
     );
